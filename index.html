@@ -3,42 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Woodland Park Ward Calendar</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Custom CSS -->
+    <title>Woodland Park Ward: Teacher's and Deacon's Quorum Calendar 2025</title>
+    <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="style.css">
+    <!-- Use Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-4 min-h-screen flex flex-col items-center justify-center">
+<body class="bg-blue-50 dark:bg-gray-900 min-h-screen flex flex-col items-center p-4">
 
-    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-4xl w-full">
-        <!-- Header with centered titles -->
-        <div class="flex flex-col items-center text-center mb-6 border-b pb-4">
-            <h1 class="text-3xl font-bold text-gray-800">Woodland Park Ward</h1>
-            <h2 class="text-xl text-gray-600">Teacher's & Deacon's Quorum</h2>
+    <!-- Main Container -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-4xl w-full p-6 sm:p-8 flex flex-col">
+        
+        <!-- Top Title and Nav Arrows -->
+        <div class="flex items-center justify-between mb-6">
+            <button id="prev-month-btn-top" onclick="scrollMonth(-1)" class="p-2 sm:p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <!-- Title section with "Woodland Park Ward" and "Teacher's and Deacon's Quorum" -->
+            <div class="flex flex-col items-center">
+                <p class="text-sm font-semibold text-gray-600 dark:text-gray-400">Woodland Park Ward</p>
+                <h2 class="text-lg sm:text-xl font-bold text-center text-gray-900 dark:text-white">Teacher's and Deacon's Quorum</h2>
+                <h1 id="month-title" class="text-xl sm:text-2xl font-bold text-center text-gray-900 dark:text-white">
+                    <!-- Month Title will be dynamically inserted here -->
+                </h1>
+            </div>
+            <button id="next-month-btn-top" onclick="scrollMonth(1)" class="p-2 sm:p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
 
-        <!-- Month Navigation (Top) -->
-        <div class="flex justify-between items-center mb-6">
-            <button class="nav-button prev-month-btn text-gray-600 hover:text-gray-800 text-3xl font-bold transition duration-300">&lsaquo;</button>
-            <h3 id="currentMonthYear" class="text-2xl font-semibold text-gray-700"></h3>
-            <button class="nav-button next-month-btn text-gray-600 hover:text-gray-800 text-3xl font-bold transition duration-300">&rsaquo;</button>
+        <!-- Calendar Content Area (for a single month) -->
+        <div id="calendar-container">
+            <!-- Calendar content for the current month will be generated here -->
         </div>
 
-        <!-- Event List -->
-        <div id="event-list" class="space-y-4">
-            <!-- Events will be rendered here by script.js -->
-        </div>
-
-        <!-- Month Navigation (Bottom) -->
-        <div class="flex justify-between items-center mt-8 pt-4 border-t">
-            <button class="nav-button prev-month-btn text-gray-600 hover:text-gray-800 text-3xl font-bold transition duration-300">&lsaquo;</button>
-            <button class="nav-button next-month-btn text-gray-600 hover:text-gray-800 text-3xl font-bold transition duration-300">&rsaquo;</button>
+        <!-- Bottom Navigation Arrows -->
+        <div class="flex items-center justify-between mt-6">
+            <button id="prev-month-btn-bottom" onclick="scrollMonth(-1)" class="p-2 sm:p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <button id="next-month-btn-bottom" onclick="scrollMonth(1)" class="p-2 sm:p-3 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
         </div>
     </div>
 
-    <!-- Custom JavaScript -->
+    <!-- Link to the external JavaScript file -->
     <script src="script.js"></script>
-
 </body>
 </html>
