@@ -222,6 +222,10 @@ const App = () => {
                                         <span className="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">
                                             {item.eventLabel}
                                         </span>
+                                    ) : item.eventLabel === 'Campout' ? (
+                                        <span className="text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                                            {item.eventLabel}
+                                        </span>
                                     ) : (
                                         <span className="text-sm font-medium text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
                                             {item.eventLabel}
