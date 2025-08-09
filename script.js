@@ -1,281 +1,236 @@
-// A self-contained JavaScript file to create the calendar application.
-// This file uses JSX syntax and requires Babel to be included in the HTML file.
+// Data for the calendar
+const calendarData = {
+    sundayLeaders: ["Brother Ormond", "Brother Rydalch", "Brother Gardner", "Brother Harris", "Brother Mellen"],
+    sundayBoys: ["President Jaxson Gunsolley", "Brother Cody Mellen", "President Erik Harris"],
+    lessonsByWeek: [
+        // Lessons for August 2025
+        { startDate: new Date(2025, 7, 10), lessonTitle: "Stand Ye in Holy Places", scriptureBlock: "D&C 85-87", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/32-doctrine-and-covenants-85-87?lang=eng" },
+        { startDate: new Date(2025, 7, 24), lessonTitle: "A Principle with Promise", scriptureBlock: "D&C 89-92", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/34-doctrine-and-covenants-89-92?lang=eng" },
+        // Lessons for September 2025 (links corrected)
+        { startDate: new Date(2025, 8, 14), lessonTitle: "Be Still and Know That I Am God", scriptureBlock: "D&C 98-101", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/37-doctrine-and-covenants-98-101?lang=eng" },
+        { startDate: new Date(2025, 8, 28), lessonTitle: "The Order of the Son of God", scriptureBlock: "D&C 106-108", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/38-doctrine-and-covenants-106-108?lang=eng" },
+        // Lessons for October 2025 (links corrected)
+        { startDate: new Date(2025, 9, 12), lessonTitle: "I Will Order All Things for Your Good", scriptureBlock: "D&C 111-114", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/40-doctrine-and-covenants-111-114?lang=eng" },
+        { startDate: new Date(2025, 9, 26), lessonTitle: "O God, Where Art Thou?", scriptureBlock: "D&C 121-123", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/42-doctrine-and-covenants-121-123?lang=eng" },
+        // Lessons for November 2025 (links corrected)
+        { startDate: new Date(2025, 10, 9), lessonTitle: "A Voice of Gladness for the Living and the Dead", scriptureBlock: "D&C 125-128", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/44-doctrine-and-covenants-125-128?lang=eng" },
+        { startDate: new Date(2025, 10, 23), lessonTitle: "Prepare Ye for the Coming of the Bridegroom", scriptureBlock: "D&C 133-134", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/46-doctrine-and-covenants-133-134?lang=eng" },
+        // Lessons for December 2025 (links corrected)
+        { startDate: new Date(2025, 11, 14), lessonTitle: "We Believe", scriptureBlock: "Articles of Faith", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/48-the-articles-of-faith?lang=eng" },
+        { startDate: new Date(2025, 11, 28), lessonTitle: "The Matchless Gift of God’s Divine Son", scriptureBlock: "Christmas", url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-home-and-church-doctrine-and-covenants-2025/51-the-matchless-gift-of-gods-divine-son?lang=eng" },
+    ],
+    activitiesData: [
+        { startDate: new Date(2025, 7, 22), endDate: new Date(2025, 7, 23), name: "Lava Hot Springs", time: "5:00 PM", where: "Stake Center", eventLabel: "Campout" },
+        { startDate: new Date(2025, 8, 5), endDate: new Date(2025, 8, 6), name: "Rifle and Shotgun Shooting", time: "5:00 PM", where: "Stake Center", eventLabel: "Campout" },
+        { startDate: new Date(2025, 7, 6), endDate: new Date(2025, 7, 6), name: "Yard Games", time: "7:00 PM", where: "Stake Center", eventLabel: "Activity", group: "All YM" },
+        { startDate: new Date(2025, 7, 13), endDate: new Date(2025, 7, 13), name: "Water Games", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 7, 20), endDate: new Date(2025, 7, 20), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
+        { startDate: new Date(2025, 7, 27), endDate: new Date(2025, 7, 27), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 8, 3), endDate: new Date(2025, 8, 3), name: "Family Search Escape Room", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
+        { startDate: new Date(2025, 8, 10), endDate: new Date(2025, 8, 10), name: "Outdoor Games", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 8, 17), endDate: new Date(2025, 8, 17), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
+        { startDate: new Date(2025, 8, 24), endDate: new Date(2025, 8, 24), name: "Hike", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 9, 1), endDate: new Date(2025, 9, 1), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
+        { startDate: new Date(2025, 9, 8), endDate: new Date(2025, 9, 8), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 9, 15), endDate: new Date(2025, 9, 15), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
+        { startDate: new Date(2025, 9, 22), endDate: new Date(2025, 9, 22), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 9, 29), endDate: new Date(2025, 9, 29), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
+        { startDate: new Date(2025, 10, 5), endDate: new Date(2025, 10, 5), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
+        { startDate: new Date(2025, 10, 12), endDate: new Date(2025, 10, 12), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 10, 19), endDate: new Date(2025, 10, 19), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
+        { startDate: new Date(2025, 10, 26), endDate: new Date(2025, 10, 26), name: "Canceled: Thanksgiving Eve", time: "TBD", where: "None", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 11, 3), endDate: new Date(2025, 11, 3), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
+        { startDate: new Date(2025, 11, 10), endDate: new Date(2025, 11, 10), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 11, 17), endDate: new Date(2025, 11, 17), name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
+        { startDate: new Date(2025, 11, 24), endDate: new Date(2025, 11, 24), name: "Canceled: Christmas Eve", time: "TBD", where: "None", eventLabel: "Activity", group: "Combined YW/YM" },
+        { startDate: new Date(2025, 11, 31), endDate: new Date(2025, 11, 31), name: "Canceled: New Years Eve", time: "TBD", where: "None", eventLabel: "Activity", group: "All YM" },
+    ],
+};
 
-// Main App component for the Quorum Calendar
-const App = () => {
-    // Define the leaders and boys for Sunday lessons
-    const sundayLeaders = ["Brother Ormond", "Brother Rydalch", "Brother Gardner", "Brother Harris", "Brother Mellen"];
-    const sundayBoys = ["President Jaxson Gunsolley", "Brother Cody Mellen", "President Erik Harris"];
+// Start at August 2025 and end at December 2025
+const startMonth = 7;
+const startYear = 2025;
+const endMonth = 11;
+const endYear = 2025;
 
-    // Define the lesson schedule for the remainder of the year.
-    const lessons = [
-        // August Lessons
-        {
-            title: "Doctrine and Covenants 85–87, “Stand Ye in Holy Places”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        {
-            title: "Doctrine and Covenants 89–92, “A Principle with Promise”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        // September Lessons
-        {
-            title: "Doctrine and Covenants 98–101, “Be Still and Know That I Am God”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        {
-            title: "Doctrine and Covenants 106–108, “The Order of the Son of God”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        // October Lessons
-        {
-            title: "Doctrine and Covenants 111–114, “I Will Order All Things for Your Good”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        {
-            title: "Doctrine and Covenants 121–123, “O God, Where Art Thou?”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        // November Lessons
-        {
-            title: "Doctrine and Covenants 125–128, “A Voice of Gladness for the Living and the Dead”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        {
-            title: "Doctrine and Covenants 133–134, “Prepare Ye for the Coming of the Bridegroom”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        // December Lessons
-        {
-            title: "The Articles of Faith and Official Declarations 1 and 2, “We Believe”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-        {
-            title: "Christmas, “The Matchless Gift of God’s Divine Son”",
-            url: "https://www.churchofjesuschrist.org/study/manual/come-follow-me-for-aaronic-priesthood-quorums-and-young-women-classes-2024?lang=eng"
-        },
-    ];
+let currentMonth = startMonth;
+let currentYear = startYear;
 
-    // Specific activities, times, and locations.
-    // The date is used as a key in the format "M-D-YYYY".
-    const activitiesData = {
-        // Existing non-Wednesday activities
-        "8-22-2025": { name: "Lava Hot Springs", time: "5:00 PM", where: "Stake Center", eventLabel: "Campout" },
-        "9-5-2025": { name: "Rifle and Shotgun Shooting", time: "5:00 PM", where: "Stake Center", eventLabel: "Campout" },
-        // New Wednesday activities from the user's list, with a new 'group' property
-        "8-6-2025": { name: "Yard Games", time: "7:00 PM", where: "Stake Center", eventLabel: "Activity", group: "All YM" },
-        "8-13-2025": { name: "Water Games", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "8-20-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
-        "8-27-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "9-3-2025": { name: "Family Search Escape Room", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
-        "9-10-2025": { name: "Outdoor Games", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "9-17-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
-        "9-24-2025": { name: "Hike", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "10-1-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
-        "10-8-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "10-15-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
-        "10-22-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "10-29-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
-        "11-5-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
-        "11-12-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "11-19-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
-        "11-26-2025": { name: "Canceled: Thanksgiving Eve", time: "TBD", where: "None", eventLabel: "Activity", group: "Combined YW/YM" },
-        "12-3-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "All YM" },
-        "12-10-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Combined YW/YM" },
-        "12-17-2025": { name: "TBD", time: "TBD", where: "TBD", eventLabel: "Activity", group: "Teacher's & Deacon's Quorum" },
-        "12-24-2025": { name: "Canceled: Christmas Eve", time: "TBD", where: "None", eventLabel: "Activity", group: "Combined YW/YM" },
-        "12-31-2025": { name: "Canceled: New Years Eve", time: "TBD", where: "None", eventLabel: "Activity", group: "All YM" },
-    };
+// Get all navigation buttons
+const prevButtons = document.querySelectorAll('.prev-month-btn');
+const nextButtons = document.querySelectorAll('.next-month-btn');
 
-    // State to manage the current date being displayed
-    // This line of code initializes the calendar to the user's current month and year.
-    const [currentDate, setCurrentDate] = React.useState(new Date());
-    // State to store the generated schedule
-    const [schedule, setSchedule] = React.useState([]);
+function updateNavigationButtons() {
+    const navButtons = document.querySelectorAll('.nav-button');
+    navButtons.forEach(button => {
+        const isPrev = button.classList.contains('prev-month-btn');
+        const isNext = button.classList.contains('next-month-btn');
 
-    // Function to generate the full teaching and activity schedule for the rest of the year
-    const generateSchedule = (year) => {
-        const fullSchedule = [];
-        let leaderIndex = 0;
-        let boyIndex = 0;
-        let lessonIndex = 0;
-
-        // Loop through all 12 months of the year
-        for (let month = 0; month < 12; month++) {
-            let sundayCount = 0;
-            // Loop through each day of the month
-            let d = new Date(year, month, 1);
-            while (d.getMonth() === month) {
-                const currentDay = new Date(d);
-                const dateKey = `${currentDay.getMonth() + 1}-${currentDay.getDate()}-${currentDay.getFullYear()}`;
-
-                // Check for Sunday lessons
-                if (currentDay.getDay() === 0) { // 0 is Sunday
-                    sundayCount++;
-                    if (sundayCount === 2 || sundayCount === 4) {
-                        const conducting = sundayCount === 2 ? "Teacher's Quorum" : "Deacon's Quorum";
-                        fullSchedule.push({
-                            date: currentDay,
-                            type: 'lesson',
-                            teacher: `${sundayLeaders[leaderIndex % sundayLeaders.length]} & ${sundayBoys[boyIndex % sundayBoys.length]}`,
-                            conducting: conducting,
-                            lesson: lessons[lessonIndex % lessons.length]
-                        });
-                        leaderIndex++;
-                        boyIndex++;
-                        lessonIndex++;
-                    }
-                }
-
-                // Check for all predefined activities from the activitiesData object
-                if (activitiesData[dateKey]) {
-                    const activityDetails = activitiesData[dateKey];
-                    fullSchedule.push({
-                        date: currentDay,
-                        type: 'activity',
-                        eventLabel: activityDetails.eventLabel,
-                        activityName: activityDetails.name,
-                        time: activityDetails.time || 'TBD',
-                        whereToMeet: activityDetails.where || 'TBD',
-                        group: activityDetails.group || null, // Include the group information
-                    });
-                }
-                d.setDate(d.getDate() + 1);
-            }
+        if (isPrev && currentYear === startYear && currentMonth === startMonth) {
+            button.disabled = true;
+        } else if (isNext && currentYear === endYear && currentMonth === endMonth) {
+            button.disabled = true;
+        } else {
+            button.disabled = false;
         }
-        fullSchedule.sort((a, b) => a.date - b.date);
-        return fullSchedule;
-    };
-
-    // useEffect hook to update the schedule whenever the year changes
-    React.useEffect(() => {
-        const year = currentDate.getFullYear();
-        setSchedule(generateSchedule(year));
-    }, [currentDate]);
-
-    // Handle navigation to the previous or next month
-    const handlePrevMonth = () => {
-        setCurrentDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1));
-    };
-
-    const handleNextMonth = () => {
-        // Prevent navigating past December 2025
-        if (currentDate.getFullYear() === 2025 && currentDate.getMonth() === 11) {
-            return;
-        }
-        setCurrentDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1));
-    };
-
-    // Get the current month and year for display
-    const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
-    const currentYear = currentDate.getFullYear();
-    
-    // Check if the current month is December 2025 to disable the next button
-    const isDecember2025 = currentDate.getFullYear() === 2025 && currentDate.getMonth() === 11;
-
-    // Filter the schedule to show only the current month's assignments
-    const currentMonthSchedule = schedule.filter(item => item.date.getMonth() === currentDate.getMonth());
-
-    return (
-        <div className="p-4 sm:p-8">
-            <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-2xl p-6 sm:p-10 border border-gray-200">
-                <header className="text-center mb-8">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">Teacher's and Deacon's Quorum Calendar</h1>
-                </header>
-
-                {/* Month Navigation */}
-                <div className="flex items-center justify-between mb-8">
-                    <button
-                        onClick={handlePrevMonth}
-                        className="p-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                        <span className="arrow-button">&larr;</span>
-                    </button>
-                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-800">
-                        {currentMonth} {currentYear}
-                    </h2>
-                    <button
-                        onClick={handleNextMonth}
-                        disabled={isDecember2025}
-                        className={`p-2 rounded-full text-white transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400
-                            ${isDecember2025 ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'}`}
-                    >
-                        <span className="arrow-button">&rarr;</span>
-                    </button>
-                </div>
-
-                {/* Schedule Display */}
-                <div className="space-y-6">
-                    {currentMonthSchedule.length > 0 ? (
-                        currentMonthSchedule.map((item, index) => (
-                            <div key={index} className="bg-white border border-gray-200 rounded-xl p-6 shadow-md transition-shadow hover:shadow-lg">
-                                <div className="flex items-center justify-between mb-2">
-                                    <span className="text-lg font-bold text-gray-800">
-                                        {item.date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                                    </span>
-                                    {/* Dynamic event label with custom colors */}
-                                    {item.type === 'lesson' ? (
-                                        <span className="text-sm font-medium text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
-                                            Conducting: {item.conducting}
-                                        </span>
-                                    ) : item.eventLabel === 'Activity' ? (
-                                        <span className="text-sm font-medium text-green-600 bg-green-100 px-3 py-1 rounded-full">
-                                            {item.eventLabel}
-                                        </span>
-                                    ) : item.eventLabel === 'Campout' ? (
-                                        <span className="text-sm font-medium text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                                            {item.eventLabel}
-                                        </span>
-                                    ) : (
-                                        <span className="text-sm font-medium text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
-                                            {item.eventLabel}
-                                        </span>
-                                    )}
-                                </div>
-                                {item.type === 'lesson' ? (
-                                    <>
-                                        <p className="text-gray-700 mb-2">
-                                            <span className="font-semibold text-gray-900">Teachers:</span> {item.teacher}
-                                        </p>
-                                        <p className="text-gray-700">
-                                            <span className="font-semibold text-gray-900">Lesson:</span> 
-                                            {item.lesson.url ? (
-                                                <a href={item.lesson.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700 hover:underline transition-colors duration-200 ml-1">
-                                                    {item.lesson.title}
-                                                </a>
-                                            ) : (
-                                                <span className="ml-1">{item.lesson.title}</span>
-                                            )}
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        {/* The activity name is now the title for campouts */}
-                                        <p className="text-xl font-semibold text-gray-900">{item.activityName || item.eventLabel}</p>
-                                        {item.group && (
-                                            <p className="text-gray-700 mb-1">
-                                                <span className="font-semibold text-gray-900">Group:</span> {item.group}
-                                            </p>
-                                        )}
-                                        <p className="text-gray-700 mb-1">
-                                            <span className="font-semibold text-gray-900">Time:</span> {item.time || "TBD"}
-                                        </p>
-                                        <p className="text-gray-700">
-                                            <span className="font-semibold text-gray-900">Where to meet:</span> {item.whereToMeet || "TBD"}
-                                        </p>
-                                    </>
-                                )}
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-center text-gray-500 italic">No meetings or activities scheduled for this month.</p>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
+    });
 }
 
-// Use ReactDOM to render the App component into the 'root' div
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+function renderCalendar() {
+    // Scroll to the top of the page on month change
+    window.scrollTo(0, 0);
+
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    document.getElementById('currentMonthYear').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+    const eventList = document.getElementById('event-list');
+    eventList.innerHTML = ''; // Clear the list
+
+    // Collect and combine all events for the current month
+    const allEvents = [];
+    let lessonIndex = 0; // Use a single index to cycle through both leaders and boys
+
+    // Add lessons with teachers and links
+    calendarData.lessonsByWeek.forEach(lesson => {
+        if (lesson.startDate.getMonth() === currentMonth && lesson.startDate.getFullYear() === currentYear) {
+            const leader = calendarData.sundayLeaders[lessonIndex % calendarData.sundayLeaders.length];
+            const boy = calendarData.sundayBoys[lessonIndex % calendarData.sundayBoys.length];
+
+            allEvents.push({
+                date: lesson.startDate,
+                type: 'Lesson',
+                title: `${lesson.lessonTitle} (${lesson.scriptureBlock})`,
+                description: `<strong>Teachers:</strong> ${leader} & ${boy}`,
+                url: lesson.url
+            });
+            lessonIndex++;
+        }
+    });
+
+    // Add activities
+    calendarData.activitiesData.forEach(activity => {
+        const startMonth = activity.startDate.getMonth();
+        const startYear = activity.startDate.getFullYear();
+
+        if (startMonth === currentMonth && startYear === currentYear) {
+            allEvents.push({
+                date: activity.startDate,
+                endDate: activity.endDate,
+                type: activity.eventLabel,
+                title: activity.name,
+                description: {
+                    time: activity.time,
+                    where: activity.where,
+                    group: activity.group
+                }
+            });
+        }
+    });
+
+    // Sort all events by date
+    allEvents.sort((a, b) => a.date - b.date);
+
+    // Render each event
+    if (allEvents.length === 0) {
+         eventList.innerHTML = '<p class="text-center text-gray-500">No events for this month.</p>';
+    } else {
+        allEvents.forEach(event => {
+            const eventDiv = document.createElement('div');
+            eventDiv.classList.add('p-4', 'rounded-lg', 'shadow-sm', 'bg-gray-50', 'border', 'border-gray-200', 'relative');
+
+            let eventColor = '';
+            if (event.type === 'Lesson') {
+                 eventColor = 'bg-blue-100 text-blue-800';
+            } else if (event.type === 'Activity') {
+                eventColor = 'bg-green-100 text-green-800';
+            } else if (event.type === 'Campout') {
+                eventColor = 'bg-red-100 text-red-800';
+            }
+
+            // Determine the date string
+            let dateString;
+            const startDate = event.date;
+            const endDate = event.endDate;
+
+            if (endDate && startDate.toDateString() !== endDate.toDateString()) {
+                const startDay = startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+                const endDayNumber = endDate.getDate();
+                dateString = `${startDay} - ${endDayNumber}`;
+            } else {
+                dateString = startDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+            }
+
+            // Handle lessons with a clickable title
+            if (event.type === 'Lesson' && event.url) {
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm font-semibold text-gray-700">${dateString}</span>
+                        <div class="px-2 py-1 rounded-full text-xs font-semibold ${eventColor}">${event.type}</div>
+                    </div>
+                    <h4 class="text-lg font-bold lesson-link" data-url="${event.url}">
+                        ${event.title}
+                    </h4>
+                    <p class="text-sm text-gray-600 mt-1">${event.description}</p>
+                `;
+            } else {
+                // Handle activities with stacked details
+                const details = event.description;
+                let detailsHtml = '';
+                if (details.time && details.time !== 'TBD') detailsHtml += `<p class="text-sm text-gray-600">Time: ${details.time}</p>`;
+                if (details.where && details.where !== 'TBD' && details.where !== 'None') detailsHtml += `<p class="text-sm text-gray-600">Where: ${details.where}</p>`;
+                if (details.group && details.group !== 'N/A') detailsHtml += `<p class="text-sm text-gray-600">Group: ${details.group}</p>`;
+
+                eventDiv.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm font-semibold text-gray-700">${dateString}</span>
+                        <div class="px-2 py-1 rounded-full text-xs font-semibold ${eventColor}">${event.type}</div>
+                    </div>
+                     <h4 class="text-lg font-bold text-gray-800">${event.title}</h4>
+                     ${detailsHtml}
+                `;
+            }
+            eventList.appendChild(eventDiv);
+        });
+    }
+
+    // Add click listeners to the new lesson links
+    document.querySelectorAll('.lesson-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const url = e.target.getAttribute('data-url');
+            if (url) {
+                window.open(url, '_blank');
+            }
+        });
+    });
+    updateNavigationButtons();
+}
+
+// Event listeners for month navigation
+prevButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (currentMonth > startMonth || currentYear > startYear) {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        }
+    });
+});
+
+nextButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (currentMonth < endMonth || currentYear < endYear) {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            renderCalendar();
+        }
+    });
+});
+
+// Initial render
+document.addEventListener('DOMContentLoaded', renderCalendar);
