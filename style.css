@@ -1,18 +1,31 @@
+/* Import the Inter font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 body {
     font-family: 'Inter', sans-serif;
 }
 
-.nav-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+/* Custom scrollbar styling for better aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #e5e7eb; /* Gray-200 */
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #9ca3af; /* Gray-400 */
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* Gray-500 */
 }
 
-.lesson-link {
-    cursor: pointer;
-    color: #2563eb;
-    text-decoration: underline;
+.dark ::-webkit-scrollbar-track {
+    background: #1f2937; /* Gray-800 */
 }
-
-.lesson-link:hover {
-    color: #1e40af;
+.dark ::-webkit-scrollbar-thumb {
+    background: #4b5563; /* Gray-600 */
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280; /* Gray-500 */
 }
