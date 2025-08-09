@@ -1,5 +1,4 @@
 /* Custom styles to replicate the Tailwind classes */
-
 .font-sans {
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -101,6 +100,12 @@
 
 .p-2 {
     padding: 0.5rem;
+}
+
+.arrow-button {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
 }
 
 .rounded-full {
@@ -222,6 +227,14 @@
 
 .bg-green-100 {
     background-color: #dcfce7;
+}
+
+.text-yellow-600 {
+    color: #ca8a04;
+}
+
+.bg-yellow-100 {
+    background-color: #fefce8;
 }
 
 .text-gray-700 {
